@@ -7,23 +7,105 @@ Websites:
 - https://skillicons.dev (Skill Icons to show skills)
 - https://github-readme-streak-stats.herokuapp.com (Github Readme Streak Stats)
 
-:root {
-  --background: 27 27 27;
-  --foreground: 225 225 225;
-  --muted: 115 115 115;
-  --accent: 254 254 91; #FEFE5B
-}
-
 */
 
-export const projectsData = [
+
+
+export const repoHandler = async (req, res) => {
+  const GITHUB_API_URL = "https://api.github.com/user/repos?type=all";
+  const token = process.env.NEXT_PUBLIC_GITHUB_TOKEN;
+
+  try {
+    const response = await fetch(`${GITHUB_API_URL}`, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    })
+    if (!response.ok) {
+      // return res.status(response.status).json({ error: response.statusText })
+      throw new Error(`Error: ${response.status} ${response.statusText}`);
+    }
+    const repos = await response.json();
+    console.log('Raw response from GitHub:', repos);
+
+
+    const projects = repos.map((repo) => ({
+      id: repo.id,
+      name: repo.name,
+      description: repo.description || 'No description provided',
+      date: repo.created_at.split('T')[0],
+      url: repo.html_url,
+      private: repo.private,
+    }))
+
+    console.log(projects);
+
+    // Respond with the projects data
+    res.status(200).json(projects);
+    // return projects;
+
+  } catch (error) {
+    console.error('Failed to fetch GitHub repositories:', error);
+    res.status(500).json({ error: 'Failed to fetch GitHub repositories' });
+
+  }
+}
+
+
+
+export const BtnList = [
   {
-    id: 1,
-    name: "EcoTracker",
-    description: "Track your carbon footprint",
-    date: "2022-08-15",
-    demoLink: "https://ecotracker.example.com",
+    label: "Home",
+    link: "/",
+    icon: "home",
+    newTab: false
   },
+  {
+    label: "About",
+    link: "/about",
+    icon: "about",
+    newTab: false
+  },
+  {
+    label: "Projects",
+    link: "/projects",
+    icon: "projects",
+    newTab: false
+  },
+  {
+    label: "Contact",
+    link: "/contact",
+    icon: "contact",
+    newTab: false
+  },
+  {
+    label: "Github",
+    link: "https://github.com/faizan-adil1",
+    icon: "github",
+    newTab: true,
+  },
+  {
+    label: "LinkedIn",
+    link: "https://www.linkedin.com/in/faizan-adil/",
+    icon: "linkedin",
+    newTab: true,
+  },
+  // {
+  //   label: "X",
+  //   link: "https://www.x.com/code_bucks",
+  //   icon: "twitter",
+  //   newTab: true,
+  // },
+  {
+    label: "Resume",
+    link: "/resume.pdf",
+    icon: "resume",
+    newTab: true,
+  },
+];
+
+export const projectsData = [
+
   {
     id: 2,
     name: "ArtGallery Online",
@@ -88,36 +170,4 @@ export const projectsData = [
     demoLink: "https://mindfulmoments.example.com",
   },
 ];
-
-export const BtnList = [
-  { label: "Home", link: "/", icon: "home", newTab: false },
-  { label: "About", link: "/about", icon: "about", newTab: false },
-  { label: "Projects", link: "/projects", icon: "projects", newTab: false },
-  { label: "Contact", link: "/contact", icon: "contact", newTab: false },
-  {
-    label: "Github",
-    link: "https://www.github.com/codebucks27",
-    icon: "github",
-    newTab: true,
-  },
-  {
-    label: "LinkedIn",
-    link: "https://www.linkedin.com/in/codebucks",
-    icon: "linkedin",
-    newTab: true,
-  },
-  {
-    label: "X",
-    link: "https://www.x.com/code_bucks",
-    icon: "twitter",
-    newTab: true,
-  },
-  {
-    label: "Resume",
-    link: "/resume.pdf",
-    icon: "resume",
-    newTab: true,
-  },
-];
-
 
