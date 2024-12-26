@@ -1,10 +1,11 @@
+"use client";
 import React from "react";
 import Link from "next/link";
 import ItemLayout from "./ItemLaoyout";
-// import ItemLayout from "./ItemLayout";
 
 
 const AboutDetails = () => {
+
   return (
     <section className="py-20 w-full">
       <div className="grid grid-cols-12 gap-4 xs:gap-6 md:gap-8 w-full">
@@ -19,7 +20,7 @@ const AboutDetails = () => {
             I am Muhammad Faizan Adil, a passionate Frontend Developer with 2+ years of
             academic experience in BSCS at IQRA University (extension campus). I specialize
             in building responsive, user-friendly portals using React.js, Next.js, and Tailwind CSS.
-            I have created three major portals from scratch: "Onboarding," "Brands Admin," and "Admin Panel,"
+            I have created three major portals from scratch: &quot;Onboarding&quot;, &quot;Brands Admin&quot;, and &quot;Admin Panel&quot;,
             ensuring they are responsive across all devices. I am always eager to learn new technologies and bring creative ideas to life.
           </p>
         </ItemLayout>
@@ -87,7 +88,29 @@ const AboutDetails = () => {
             loading="lazy"
           />
         </ItemLayout>
-      </div>
+
+        {/* PUBLIC REPO */}
+        <ItemLayout className={"col-span-full md:col-span-6 !p-0"}>
+          <img
+            className="w-full h-auto"
+            src={`${process.env.NEXT_PUBLIC_GITHUB_STATS_URL}/api/pin?username=faizan-adil1&repo=wizardPortfolio&theme=transparent&hide_border=true&title_color=FEFE5B&text_color=FFFFFF&icon_color=FEFE5B&text_bold=false&description_lines_count=2`} 
+            alt="GitHub Stats"
+            loading="lazy"
+          />
+        </ItemLayout>
+
+        {/* PRIVATE REPO CAN'T ACCESS  */}
+        {/* <ItemLayout className={"col-span-full md:col-span-6 !p-0"}>
+          <img
+            className="w-full h-auto"
+            src={`${process.env.NEXT_PUBLIC_GITHUB_STATS_URL}/api/pin?username=faizan-adil1&repo=admin&theme=transparent&hide_border=true&title_color=FEFE5B&text_color=FFFFFF&icon_color=FEFE5B&text_bold=false&description_lines_count=2`} 
+            alt="GitHub Stats"
+            loading="lazy"
+          />
+        </ItemLayout> */}
+
+
+     </div>
     </section>
   );
 };

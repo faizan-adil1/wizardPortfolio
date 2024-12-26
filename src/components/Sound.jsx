@@ -1,7 +1,7 @@
 "use client";
 import { motion } from "framer-motion";
 import { Volume2, VolumeX } from "lucide-react";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import { createPortal } from "react-dom";
 
 const Modal = ({ onClose, toggle }) => {
@@ -51,7 +51,7 @@ const Sound = () => {
     );
   };
 
-  useEffect(() => {
+  React.useEffect(() => {
     const consent = localStorage.getItem("musicConsent");
     const consentTime = localStorage.getItem("consentTime");
 

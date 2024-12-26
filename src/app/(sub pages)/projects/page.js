@@ -24,7 +24,7 @@ export default function Home() {
   React.useEffect(() => {
     // Fetching data from GitHub API
     async function fetchProjects() {
-      const res = await fetch("https://api.github.com/users/faizan-adil1/repos");
+      const res = await fetch("https://api.github.com/users/faizan-adil1/repos?type=all");
       const data = await res.json();
 
       // Formatting the data as you need
